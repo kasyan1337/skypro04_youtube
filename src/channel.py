@@ -23,11 +23,37 @@ class Channel:
             self.title = snippet.get('title')
             self.channel_description = snippet.get('description')
             self.url = f"https://www.youtube.com/channel/{self._channel_id}"
-            self.channel_subs = statistics.get('subscriberCount')
-            self.video_count = statistics.get('videoCount')
-            self.channel_views = statistics.get('viewCount')
+            self.channel_subs = int(statistics.get('subscriberCount'))
+            self.video_count = int(statistics.get('videoCount'))
+            self.channel_views = int(statistics.get('viewCount'))
         else:
             raise ValueError("Что-то пошло не так")
+
+    def __str__(self):
+        """<название_канала> (<ссылка_на_канал>)`"""
+        return f'{self.title} ({self.url})'
+
+    # Сложение / вычитание / сравнение идет по количеству подписчиков.
+    def __add__(self, other):
+        return self.channel_subs + other.channel_subs
+
+    def __sub__(self, other):
+        return self.channel_subs - other.channel_subs
+
+    def __eq__(self, other):
+        return self.channel_subs == other.channel_subs
+
+    def __lt__(self, other):
+        return self.channel_subs < other.channel_subs
+
+    def __le__(self, other):
+        return self.channel_subs <= other.channel_subs
+
+    def __gt__(self, other):
+        return self.channel_subs > other.channel_subs
+
+    def __ge__(self, other):
+        return self.channel_subs >= other.channel_subs
 
     @property
     def channel_id(self):
