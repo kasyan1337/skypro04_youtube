@@ -33,6 +33,7 @@ class Channel:
         """<название_канала> (<ссылка_на_канал>)`"""
         return f'{self.title} ({self.url})'
 
+    # Сложение / вычитание / сравнение идет по количеству подписчиков.
     def __add__(self, other):
         return self.channel_subs + other.channel_subs
 
